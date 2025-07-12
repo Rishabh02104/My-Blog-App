@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <h1>Welcome to My Blog</h1>
+    <p>Explore thoughts, ideas, and stories on various topics. Join the conversation by creating your own posts!</p>
+    <a href="/compose" class="btn btn-success btn-lg">Start Writing Now</a>
+</div>
+
+<h2 class="mb-4 text-center">Latest Posts</h2> <!-- Changed to h2 for hierarchy -->
+
+<% if (posts.length === 0) { %>
+    <div class="text-center py-5">
+        <p class="lead text-muted mb-4">No posts yet. Be the first to share your thoughts!</p>
+        <!-- Button already in hero, so remove this duplicate if hero is prominent -->
+        <!-- <a href="/compose" class="btn btn-success btn-lg">Create New Post</a> -->
+    </div>
+<% } else { %>
+    <div class="row"> <!-- Use Bootstrap row for grid layout -->
+        <% posts.forEach(function(post) { %>
+            <div class="col-md-6 mb-4"> <!-- Two columns on medium/large screens -->
+                <div class="card h-100"> <!-- h-100 to make cards same height -->
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title"><%= post.title %></h5>
+                        <p class="card-text flex-grow-1"><%= post.content.substring(0, 150) %><% if (post.content.length > 150) { %>...<% } %></p>
+                        <div class="mt-auto d-flex justify-content-end"> <!-- Push buttons to bottom of card -->
+                            <a href="/posts/<%= post.id %>" class="btn btn-primary btn-sm me-2">Read More</a>
+                            <a href="/edit/<%= post.id %>" class="btn btn-warning btn-sm me-2">Edit</a>
+                            <form action="/delete/<%= post.id %>" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    <div class="mt-5 text-center">
+        <a href="/compose" class="btn btn-success btn-lg">Create Another Post</a> <!-- Changed text -->
+    </div>
+<% } %>
+
+<%- include('partials/footer') %>

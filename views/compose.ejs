@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<h1 class="mb-4 text-center">Compose New Post</h1> <!-- Centered heading -->
+
+<div class="card p-4 shadow-sm"> <!-- Card wrapper for the form -->
+    <div class="card-body">
+        <form action="/compose" method="POST">
+            <div class="mb-3">
+                <label for="postTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="postTitle" name="postTitle" required>
+            </div>
+            <div class="mb-3">
+                <label for="postContent" class="form-label">Content</label>
+                <textarea class="form-control" id="postContent" name="postContent" rows="10" required></textarea> <!-- Increased rows for content -->
+                <small id="contentHelp" class="form-text text-muted">Characters: <span id="charCount">0</span></small>
+            </div>
+            <button type="submit" class="btn btn-primary">Publish Post</button>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<script>
+    // JavaScript for character counter
+    document.addEventListener('DOMContentLoaded', function() {
+        const postContent = document.getElementById('postContent');
+        const charCountSpan = document.getElementById('charCount');
+
+        // Function to update the character count
+        function updateCharCount() {
+            charCountSpan.textContent = postContent.value.length;
+        }
+
+        // Initial count when the page loads (if there's pre-filled content)
+        updateCharCount();
+
+        // Listen for input events on the textarea
+        postContent.addEventListener('input', updateCharCount);
+    });
+</script>

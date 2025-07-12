@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<h1 class="mb-4 text-center">Edit Post</h1> <!-- Centered heading -->
+
+<div class="card p-4 shadow-sm"> <!-- Card wrapper for the form -->
+    <div class="card-body">
+        <form action="/edit/<%= post.id %>" method="POST">
+            <div class="mb-3">
+                <label for="postTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="postTitle" name="postTitle" value="<%= post.title %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="postContent" class="form-label">Content</label>
+                <textarea class="form-control" id="postContent" name="postContent" rows="10" required><%= post.content %></textarea> <!-- Increased rows -->
+            </div>
+            <div class="d-flex justify-content-between mt-4"> <!-- Flexbox for buttons -->
+                <button type="submit" class="btn btn-primary me-2">Update Post</button>
+                <a href="/" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
